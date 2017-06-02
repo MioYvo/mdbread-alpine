@@ -22,7 +22,7 @@ RUN \
   cd /tmp && \
   ln -s /usr/include/locale.h /usr/include/xlocale.h && \
   #pip install --no-cache-dir -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com pandas && \
-  pip install --no-cache-dir pandas && \
+  pip install --no-cache-dir six python-dateutil pytz numpy pandas && \
   python setup.py install && \
 
   #clean up
