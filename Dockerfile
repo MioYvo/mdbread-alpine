@@ -2,10 +2,7 @@ FROM alpine
 COPY mdbtools-0.7.1.zip mdbread /tmp/
 COPY repositories /etc/apk/repositories
 RUN \
-  # echo 'https://mirrors.tuna.tsinghua.edu.cn/alpine/v3.6/main\n\
-  # https://mirrors.tuna.tsinghua.edu.cn/alpine/v3.6/community/' >
   apk --no-cache add \
-    git \
     autoconf \
     automake \
     build-base \
@@ -30,6 +27,6 @@ RUN \
 
   #clean up
   apk update && \
-  apk del build-base git autoconf automake && \
+  apk del build-base autoconf automake && \
   apk info && \
   rm -rf /tmp/*
