@@ -15,4 +15,4 @@ Thanks these two amazing projects.
 
 
 ## Note
-1. You can modify file `repositories` to change the repositories of apk(Alpine Linux package management). In this project, I use ustc's apline repository because I am in China, it's very slow to download packages from alpine's default repository.
+1. You can modify file `repositories` to change the repositories of apk(Alpine Linux package management). ~~In this project, I use ustc's apline repository because I am in China, it's very slow to download packages from alpine's default repository.~~

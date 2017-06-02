@@ -22,10 +22,10 @@ RUN \
   autoreconf -i -f && ./configure --disable-man && make && make install && \
 
   # install mdbread
-  # cd / && git clone https://github.com/gilesc/mdbread.git && \
   cd /tmp && \
   ln -s /usr/include/locale.h /usr/include/xlocale.h && \
-  pip install --no-cache-dir -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com pandas && \
+  #pip install --no-cache-dir -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com pandas && \
+  pip install --no-cache-dir pandas && \
   python setup.py install && \
 
   #clean up
