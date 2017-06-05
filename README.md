@@ -16,6 +16,7 @@ Thanks these two amazing projects.
 
 ## Note
 1. You can modify file `repositories` to change the repositories of apk(Alpine Linux package management). ~~In this project, I use ustc's apline repository because I am in China, it's very slow to download packages from alpine's default repository.~~
+2. Mdbread use pandas to return `Dataframe` object, i remove the pandas to save about 50% size of this image(235MB > 123MB). If u need `Dataframe` object, u can modify mdbread/mdbread.pyx and Dockerfile to add pandas support, there's a tag in github that built with pandas.
 
 ## How to use
 * Pull and test

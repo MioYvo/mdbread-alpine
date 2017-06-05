@@ -3,11 +3,10 @@ from distutils.extension import Extension
 from Cython.Distutils import build_ext
 
 import subprocess as sp
-import sys
 
 def pkgconfig(*packages, **kw):
-    flag_map = {'-I': 'include_dirs', 
-                '-L': 'library_dirs', 
+    flag_map = {'-I': 'include_dirs',
+                '-L': 'library_dirs',
                 '-l': 'libraries'}
     cmd = ["pkg-config", "--libs", "--cflags"]
     cmd.extend(packages)
@@ -28,7 +27,7 @@ setup(
     author_email='cory.b.giles@gmail.com',
     url='http://corygil.es/',
     cmdclass={'build_ext': build_ext},
-    ext_modules = [Extension("mdbread", ["mdbread.pyx"], 
+    ext_modules = [Extension("mdbread", ["mdbread.pyx"],
                              **pkgconfig("libmdb"))],
     classifiers=[
         "Development Status :: 2 - Pre-Alpha",

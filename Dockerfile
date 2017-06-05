@@ -9,7 +9,6 @@ RUN \
     glib \
     glib-dev \
     libtool \
-    py2-pip \
     ca-certificates \
     cython-dev && \
 
@@ -23,7 +22,7 @@ RUN \
   cd /tmp && \
   ln -s /usr/include/locale.h /usr/include/xlocale.h && \
   #pip install --no-cache-dir -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com pandas && \
-  pip install --no-cache-dir pandas && \
+  #pip install --no-cache-dir pandas && \
   python setup.py install && \
 
   # clean up

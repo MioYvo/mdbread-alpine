@@ -1,6 +1,6 @@
-import pandas
 import time
 from collections import namedtuple
+#import pandas
 
 cdef extern from "glib.h":
     void* g_malloc(int)
@@ -159,10 +159,10 @@ cdef class Table(object):
         g_free(self.bound_values)
         g_free(self.bound_lens)
  
-    def to_data_frame(self):
-        rows = []
-        for row in self:
-            rows.append(row)
-        names = self._column_names()
-        return pandas.DataFrame(rows, columns=names)
+    #def to_data_frame(self):
+    #    rows = []
+    #    for row in self:
+    #        rows.append(row)
+    #    names = self._column_names()
+    #    return pandas.DataFrame(rows, columns=names)
 
