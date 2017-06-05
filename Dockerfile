@@ -10,6 +10,7 @@ RUN \
     glib-dev \
     libtool \
     py2-pip \
+    ca-certificates \
     cython-dev && \
 
   # install mdb-tools
