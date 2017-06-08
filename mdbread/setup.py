@@ -4,7 +4,8 @@ from Cython.Distutils import build_ext
 
 import subprocess as sp
 
-def pkgconfig(*packages, **kw):
+
+def pkgconfig(*packages):
     flag_map = {'-I': 'include_dirs',
                 '-L': 'library_dirs',
                 '-l': 'libraries'}
@@ -12,12 +13,15 @@ def pkgconfig(*packages, **kw):
     cmd.extend(packages)
     try:
         out = sp.check_output(cmd, universal_newlines=True)
+        print out.split()
     except:
         raise SystemExit("libmdb (or pkg-config) is not installed! Aborting...")
     kw = {}
     for token in out.split():
         kw.setdefault(flag_map.get(token[:2]), []).append(token[2:])
+    kw.pop(None, None)
     return kw
+
 
 setup(
     name='mdbread',
@@ -27,8 +31,8 @@ setup(
     author_email='cory.b.giles@gmail.com',
     url='http://corygil.es/',
     cmdclass={'build_ext': build_ext},
-    ext_modules = [Extension("mdbread", ["mdbread.pyx"],
-                             **pkgconfig("libmdb"))],
+    ext_modules=[Extension("mdbread", ["mdbread.pyx"],
+                           **pkgconfig("libmdb"))],
     classifiers=[
         "Development Status :: 2 - Pre-Alpha",
         "Intended Audience :: Developers",

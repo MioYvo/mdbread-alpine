@@ -1,4 +1,12 @@
 ========
+changes from the original
+========
+
+- remove pandas
+- fix Integer error
+
+
+========
 mdbread
 ========
 
