@@ -2,6 +2,3 @@
 *.c
 *.pyc
 build
-device_data
-mdbread_try
-.idea

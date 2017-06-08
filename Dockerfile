@@ -10,7 +10,8 @@ RUN \
     glib-dev \
     libtool \
     ca-certificates \
-    cython-dev && \
+    cython-dev \
+    py-pip && \
 
   # install mdb-tools
   cd /tmp && \
@@ -22,7 +23,7 @@ RUN \
   cd /tmp && \
   ln -s /usr/include/locale.h /usr/include/xlocale.h && \
   #pip install --no-cache-dir -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com pandas && \
-  #pip install --no-cache-dir pandas && \
+  pip install --no-cache-dir pandas && \
   python setup.py install && \
 
   # clean up

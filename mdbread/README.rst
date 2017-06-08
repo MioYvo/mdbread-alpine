@@ -1,14 +1,6 @@
-========
-changes from the original
-========
-
-- remove pandas
-- fix Integer error
-
-
-========
+=======
 mdbread
-========
+=======
 
 A simple Cython-based wrapper for the excellent MDBTools package to read data from MS Access MDB files. Currently, it supports a few basic operations like listing tables and table columns, iterating through rows, or exporting a table to a pandas DataFrame. It does not support SQL or inserts.
 
