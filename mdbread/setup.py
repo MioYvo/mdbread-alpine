@@ -1,3 +1,4 @@
+from __future__ import print_function
 from distutils.core import setup
 from distutils.extension import Extension
 from Cython.Distutils import build_ext
@@ -13,7 +14,7 @@ def pkgconfig(*packages):
     cmd.extend(packages)
     try:
         out = sp.check_output(cmd, universal_newlines=True)
-        print out.split()
+        print(out.split())
     except:
         raise SystemExit("libmdb (or pkg-config) is not installed! Aborting...")
     kw = {}
