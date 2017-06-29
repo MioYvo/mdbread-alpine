@@ -1,6 +1,7 @@
 FROM python:3.6.1-alpine
-COPY mdbtools-0.7.1.zip mdbread /tmp/
 
+# --------------------- install mdbread ---------------------
+COPY mdbtools-0.7.1.zip mdbread requirements.txt /tmp/
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories && \
   apk --no-cache add \
     autoconf \
@@ -17,7 +18,7 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositorie
   autoreconf -i -f && ./configure --disable-man && make && make install && \
 
   # install mdbread
-  pip install Cython && \
+  pip install -r /tmp/requirements.txt && \
   cd /tmp && \
   ln -s /usr/include/locale.h /usr/include/xlocale.h && \
   export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig/ && \
@@ -29,3 +30,9 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositorie
   apk del build-base autoconf automake && \
   apk info && \
   rm -rf /tmp/*
+
+# --------------------- install parser ---------------------
+COPY parser /parser
+WORKDIR /parser
+CMD ["python", "run_server.py"]
+

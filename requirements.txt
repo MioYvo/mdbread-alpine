@@ -1,0 +1,7 @@
+Cython==0.25.2
+python-dateutil==2.6.0
+redis==2.10.5
+schema==0.6.6
+six==1.10.0
+tornado==4.5.1
+ujson==1.35
