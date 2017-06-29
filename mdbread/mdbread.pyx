@@ -56,6 +56,7 @@ transformers = {
     "DateTime": lambda dt: time.strptime(dt.decode(), "%m/%d/%y %H:%M:%S"),
     "Memo/Hyperlink": lambda x: x.decode(),
     "Integer": lambda x: int(x) if x != b"" else "",
+    "OLE": str,
 }
 
 cdef class MDB(object):
@@ -72,7 +73,7 @@ cdef class MDB(object):
         cdef MdbCatalogEntry*entry
 
         tables = []
-        for i in xrange(self._handle.num_catalog):
+        for i in range(self._handle.num_catalog):
             entry = <MdbCatalogEntry*> \
                 g_ptr_array_index(self._handle.catalog, i)
             name = entry.object_name
@@ -109,7 +110,7 @@ cdef class Table(object):
         self.bound_lens = \
             <int*> g_malloc(<int> (self.ncol * sizeof(int)))
 
-        for j in xrange(self.ncol):
+        for j in range(self.ncol):
             self.bound_values[j] = <char*> g_malloc0(MDB_BIND_SIZE)
 
         mdb_read_columns(self.tbl)
@@ -117,7 +118,7 @@ cdef class Table(object):
     def _column_names(self):
         names = []
         cdef MdbColumn*col
-        for j in xrange(self.ncol):
+        for j in range(self.ncol):
             col = <MdbColumn*> g_ptr_array_index(self.tbl.columns, j)
             names.append(col.name.decode())
         return names
@@ -126,7 +127,7 @@ cdef class Table(object):
     def column_types(self):
         cdef char*col_type
         col_types = []
-        for j in xrange(self.ncol):
+        for j in range(self.ncol):
             col = <MdbColumn*> g_ptr_array_index(self.tbl.columns, j)
             col_type = mdb_get_colbacktype_string(col)
             col_types.append(col_type.decode())
@@ -149,7 +150,7 @@ cdef class Table(object):
         cdef char*col_type
         col_types = []
 
-        for j in xrange(self.ncol):
+        for j in range(self.ncol):
             col = <MdbColumn*> g_ptr_array_index(self.tbl.columns, j)
             col_type = mdb_get_colbacktype_string(col)
             col_types.append(col_type.decode())
@@ -158,14 +159,13 @@ cdef class Table(object):
                             self.bound_values[j],
                             &self.bound_lens[j])
 
-        _transformers = [transformers[t] for t in col_types]
+        _transformers = [transformers.get(t, str) for t in col_types]
         while mdb_fetch_row(self.tbl):
-            row = [_transformers[j](self.bound_values[j])
-                   for j in xrange(self.ncol)]
+            row = [_transformers[j](self.bound_values[j]) for j in range(self.ncol)]
             yield row
 
     def __del__(self):
-        for i in xrange(self.ncol):
+        for i in range(self.ncol):
             g_free(self.bound_values[i])
 
         g_free(self.bound_values)
