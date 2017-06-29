@@ -1,16 +1,14 @@
-FROM alpine
+FROM python:3.6.1-alpine
 COPY mdbtools-0.7.1.zip mdbread /tmp/
-COPY repositories /etc/apk/repositories
-RUN \
+
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories && \
   apk --no-cache add \
     autoconf \
     automake \
     build-base \
     glib \
     glib-dev \
-    libtool \
-    ca-certificates \
-    cython-dev && \
+    libtool && \
 
   # install mdb-tools
   cd /tmp && \
@@ -19,10 +17,11 @@ RUN \
   autoreconf -i -f && ./configure --disable-man && make && make install && \
 
   # install mdbread
+  pip install Cython && \
   cd /tmp && \
   ln -s /usr/include/locale.h /usr/include/xlocale.h && \
-  #pip install --no-cache-dir -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com pandas && \
-  #pip install --no-cache-dir pandas && \
+  export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig/ && \
+  cp /tmp/mdbtools-0.7.1/include/mdbsql.h /tmp/mdbtools-0.7.1/include/mdbtools.h /usr/lib/glib-2.0/include/ && \
   python setup.py install && \
 
   # clean up
