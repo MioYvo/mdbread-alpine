@@ -4,6 +4,7 @@
 import json
 from decimal import Decimal
 from datetime import datetime, date, timedelta
+from time import struct_time, mktime
 
 from tornado.escape import to_basestring
 
@@ -21,5 +22,7 @@ class MySQLQueryEncoder(json.JSONEncoder):
             return (datetime.min + obj).time().isoformat()
         if isinstance(obj, Decimal):
             return float(obj)
+        if isinstance(obj, struct_time):
+            return self.default(datetime.fromtimestamp(mktime(obj)))
         # Let the base class default method raise the TypeError
         return json.JSONEncoder.default(self, obj)

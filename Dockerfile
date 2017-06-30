@@ -18,7 +18,7 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositorie
   autoreconf -i -f && ./configure --disable-man && make && make install && \
 
   # install mdbread
-  pip install -r /tmp/requirements.txt && \
+  pip install --no-cache-dir -r /tmp/requirements.txt && \
   cd /tmp && \
   ln -s /usr/include/locale.h /usr/include/xlocale.h && \
   export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig/ && \

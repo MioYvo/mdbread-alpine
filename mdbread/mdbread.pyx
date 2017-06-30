@@ -55,8 +55,7 @@ transformers = {
     "Text": lambda x: x.decode(),
     "DateTime": lambda dt: time.strptime(dt.decode(), "%m/%d/%y %H:%M:%S"),
     "Memo/Hyperlink": lambda x: x.decode(),
-    "Integer": lambda x: int(x) if x != b"" else "",
-    "OLE": str,
+    "Integer": lambda x: int(x) if x != b"" else ""
 }
 
 cdef class MDB(object):
@@ -159,7 +158,7 @@ cdef class Table(object):
                             self.bound_values[j],
                             &self.bound_lens[j])
 
-        _transformers = [transformers.get(t, str) for t in col_types]
+        _transformers = [transformers.get(t, lambda x: str(x) if x else "") for t in col_types]
         while mdb_fetch_row(self.tbl):
             row = [_transformers[j](self.bound_values[j]) for j in range(self.ncol)]
             yield row
