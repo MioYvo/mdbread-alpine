@@ -16,7 +16,7 @@ from tornado.options import define, options
 from parser.urls import urls
 from parser.settings import settings
 
-define("port", default=6464, help="run on the given port", type=int)
+define("port", default=80, help="run on the given port", type=int)
 
 
 class Application(tornado.web.Application):
